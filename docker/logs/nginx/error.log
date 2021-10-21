@@ -1,0 +1,5 @@
+2021/10/18 11:10:02 [emerg] 1#1: host not found in upstream "gcp-php-fpm" in /etc/nginx/conf.d/default.conf:15
+2021/10/18 11:44:17 [emerg] 1#1: host not found in upstream "gcp-php-fpm" in /etc/nginx/conf.d/default.conf:15
+2021/10/18 11:47:42 [emerg] 1#1: host not found in upstream "gcp-php-fpm" in /etc/nginx/conf.d/default.conf:15
+2021/10/18 11:49:32 [emerg] 1#1: host not found in upstream "php-fpm" in /etc/nginx/conf.d/default.conf:15
+2021/10/18 11:50:44 [emerg] 1#1: host not found in upstream "php-fpm" in /etc/nginx/conf.d/default.conf:15

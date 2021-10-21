@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}About - DashBoard{% endblock %}
+
+{% block body %}
+    <div class="app-admin-wrap layout-sidebar-large clearfix">
+        <!-- ============ Load The Header ============ --> 
+        {% include('components/header.html.twig') %}
+        <!-- ============ Load The Menu  ============ --> 
+        {% include('components/menu.html.twig') %}
+        <!-- ============ Body content start ============= -->
+
+        <div class="main-content-wrap sidenav-open d-flex flex-column">
+
+            This is The About Part.
+            Time = {{ controller_name }}
+        </div>
+
+
+
+     </div>
+
+    <!-- ============ Search UI Start ============= -->
+    {% include('components/search.ui.html.twig') %}
+
+{% endblock %}

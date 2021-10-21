@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bootstrap 4 admin template</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles/css/themes/lite-purple.min.css">
+    <link rel="stylesheet" href="assets/styles/vendor/perfect-scrollbar.css">
+    <!-- toastr css -->
+    <link rel="stylesheet" href="assets/styles/vendor/hopscotch.css">
+    <!-- <link rel="stylesheet" href="assets/styles/toastr.css"> -->
+</head>
+
+<body class="text-left">
+    <div class="app-admin-wrap">
+        <div class="main-header">
+            <div class="logo">
+                <img src="./assets/images/logo.png" alt="">
+            </div>
+
+            <div class="menu-toggle" (click)="toggelSidebar()">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+
+            <div class="">
+                <div class="search-bar" id="search-bar">
+                    <input type="text" placeholder="Search">
+                    <i class="search-icon text-muted i-Magnifi-Glass1"></i>
+                </div>
+            </div>
+            <div style="margin: auto"></div>
+            <div class="header-part-right">
+                <div class="dropdown">
+                    <div class="badge-top-container" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="badge badge-primary">3</span>
+                        <i class="i-Bell text-muted header-icon"></i>
+                    </div>
+
+                    <div class="dropdown-menu dropdown-menu-right notification-dropdown" aria-labelledby="dropdownMenuButton">
+                        <div class="dropdown-item d-flex">
+                            <div class="notification-icon">
+                                <i class="i-Bell text-danger mr-1"></i>
+                            </div>
+                            <div class="notification-details flex-grow-1">
+                                <p class="m-0 d-flex align-items-center">
+                                    <span>New message</span>
+                                    <span class="badge badge-pill badge-primary ml-1 mr-1">new</span>
+                                    <span class="flex-grow-1"></span>
+                                    <span class="text-small text-muted ml-auto">10 sec ago</span>
+                                </p>
+                                <p class="text-small text-muted m-0">Lorem ipsum dolor sit.</p>
+                            </div>
+                        </div>
+                        <div class="dropdown-item d-flex">
+                            <div class="notification-icon">
+                                <i class="i-Bell text-primary mr-1"></i>
+                            </div>
+                            <div class="notification-details flex-grow-1">
+                                <p class="m-0 d-flex align-items-center">
+                                    <span>New message</span>
+                                    <span class="badge badge-pill badge-primary ml-1 mr-1">new</span>
+                                    <span class="flex-grow-1"></span>
+                                    <span class="text-small text-muted ml-auto">10 sec ago</span>
+                                </p>
+                                <p class="text-small text-muted m-0">Lorem ipsum dolor sit.</p>
+                            </div>
+                        </div>
+                        <div class="dropdown-item d-flex">
+                            <div class="notification-icon">
+                                <i class="i-Bell mr-1"></i>
+                            </div>
+                            <div class="notification-details flex-grow-1">
+                                <p class="m-0 d-flex align-items-center">
+                                    <span>New message</span>
+                                    <span class="badge badge-pill badge-primary ml-1 mr-1">new</span>
+                                    <span class="flex-grow-1"></span>
+                                    <span class="text-small text-muted ml-auto">10 sec ago</span>
+                                </p>
+                                <p class="text-small text-muted m-0">Lorem ipsum dolor sit.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <div class="user col align-self-end">
+                        <img src="./assets/images/faces/1.jpg" id="userDropdown" alt="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                            <div class="dropdown-header">
+                                <i class="i-Lock-User mr-1"></i> Timothy Carlson
+                            </div>
+                            <button class="dropdown-item">Account settings</button>
+                            <button class="dropdown-item">Billing history</button>
+                            <button class="dropdown-item" (click)="signout()">Sign out</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="side-content-wrap">
+            <div class="sidebar-left open">
+                <ul class="navigation-left">
+                    <li class="nav-item active" data-item="dashboard">
+                        <a class="nav-item-hold" href="#">
+                            <i class="nav-icon i-Home1"></i>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                        <div class="triangle"></div>
+                    </li>
+                    <li class="nav-item" data-item="uikits">
+                        <a class="nav-item-hold" href="#">
+                            <i class="nav-icon i-Library"></i>
+                            <span class="nav-text">UI kits</span>
+                        </a>
+                        <div class="triangle"></div>
+                    </li>
+                    <li class="nav-item" data-item="components-extra">
+                        <a class="nav-item-hold" href="#">
+                            <i class="nav-icon i-Library"></i>
+                            <span class="nav-text">Components extra</span>
+                        </a>
+                        <div class="triangle"></div>
+                    </li>
+                    <li class="nav-item" data-item="forms">
+                        <a class="nav-item-hold" href="#">
+                            <i class="nav-icon i-File-Clipboard-File--Text"></i>
+                            <span class="nav-text">Forms</span>
+                        </a>
+                        <div class="triangle"></div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item-hold" href="#">
+                            <i class="nav-icon i-Computer-Secure"></i>
+                            <span class="nav-text">Apps</span>
+                        </a>
+                        <div class="triangle"></div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-left-secondary">
+                <ul class="childNav" data-parent="dashboard">
+                    <li class="nav-item">
+                        <a href="test1.html">
+                            <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                            <span class="item-name">Dashboard child 1</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="childNav" data-parent="forms">
+                    <li class="nav-item">
+                        <a href="alerts.html">
+                            <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                            <span class="item-name">Forms child 1</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="childNav" data-parent="uikits">
+                    <li class="nav-item">
+                        <a href="alerts.html">
+                            <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                            <span class="item-name">uikits child 1</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="childNav" data-parent="components-extra">
+                    <li class="nav-item">
+                        <a href="nuslider.html">
+                            <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                            <span class="item-name">Nu SLider</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="toastr.html">
+                            <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                            <span class="item-name">Toastr</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="tour.html">
+                            <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                            <span class="item-name">Tour</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="pagination.html">
+                            <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                            <span class="item-name">Pagination</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="carousel.html">
+                            <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                            <span class="item-name">Carousel</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="progressbar.html">
+                            <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                            <span class="item-name">Progress Bar</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="tabs.html">
+                            <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                            <span class="item-name">Tabs</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="bootstrap.toast.html">
+                            <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                            <span class="item-name">Toast</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="sidebar-overlay"></div>
+        </div>
+        <!--=============== Left side End ================-->
+
+        <!-- ============ Body content start ============= -->
+        <div class="main-content-wrap sidenav-open d-flex flex-column">
+            <div class="breadcrumb">
+                <h1>Toast</h1>
+                <ul>
+                    <li><a href="">Componets</a></li>
+                    <li>Toast</li>
+                </ul>
+            </div>
+
+            <div class="separator-breadcrumb border-top"></div>
+
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <h2>Toast</h2>
+                    <p>Toasts are lightweight notifications designed to mimic the push notifications that have been popularized by mobile and desktop operating systems. They’re built with flexbox, so they’re easy to align and position.</p>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+
+
+                <div class="col-md-12 mb-4">
+                    <div class="card text-left">
+
+                        <div class="card-body">
+                            <h4 class="card-title mb-3">Basic Toast</h4>
+                            <p>To encourage extensible and predictable toasts, we recommend a header and body. Toast headers use <code class="highlighter-rouge">display:
+        flex</code>, allowing easy alignment of content thanks to our margin and flexbox utilities.</p>
+                            <div class="toast basicToast" role="alert" aria-live="assertive" aria-atomic="false" data-animation="true" data-autohide="false">
+                                <div class="toast-header">
+
+                                    <strong class="mr-auto">Bootstrap</strong>
+                                    <small>11 mins ago</small>
+                                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+                                </div>
+                                <div class="toast-body">
+                                    Hello, world! This is a toast message.
+                                </div>
+                            </div>
+                            <button class="btn btn-deafult" id="basicToast">basic toast</button class="btn btn-deafult" id="basicToast">
+                        </div>
+                    </div>
+                </div>
+                <!-- end of col -->
+
+<div class="col-md-12 mb-4">
+    <div class="card text-left">
+
+        <div class="card-body">
+            <h4 class="card-title mb-3">Basic Toast</h4>
+            <p>To encourage extensible and predictable toasts, we recommend a header and body. Toast headers use <code
+                    class="highlighter-rouge">display:
+                    flex</code>, allowing easy alignment of content thanks to our margin and flexbox utilities.</p>
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+        
+        <strong class="mr-auto">Bootstrap</strong>
+        <small class="text-muted">11 mins ago</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+                        </div>
+                        <div class="toast-body">
+                            Hello, world! This is a toast message.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end of col -->
+
+
+
+
+
+    </div>
+    <!-- end of row -->
+
+
+
+    </div>
+    <!-- ============ Body content End ============= -->
+    </div>
+    <!--=============== End app-admin-wrap ================-->
+
+    <!-- ============ Search UI Start ============= -->
+    <div class="search-ui">
+        <div class="search-header">
+            <img src="./assets/images/logo.png" alt="" class="logo">
+            <button class="search-close btn btn-icon bg-transparent float-right mt-2">
+                <i class="i-Close-Window text-22 text-muted"></i>
+            </button>
+        </div>
+
+        <input type="text" placeholder="Type here" class="search-input" autofocus>
+
+        <div class="search-title">
+            <span class="text-muted">Search results</span>
+        </div>
+
+        <div class="search-results list-horizontal">
+            <div class="list-item col-md-12 p-0">
+                <div class="card o-hidden flex-row mb-4 d-flex">
+                    <div class="list-thumb d-flex">
+                        <!-- TUMBNAIL -->
+                        <img src="./assets/images/products/headphone-1.jpg" alt="">
+                    </div>
+                    <div class="flex-grow-1 pl-2 d-flex">
+                        <div class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center flex-lg-row">
+                            <!-- OTHER DATA -->
+                            <a href="" class="w-40 w-sm-100">
+                                <div class="item-title">Headphone 1</div>
+                            </a>
+                            <p class="m-0 text-muted text-small w-15 w-sm-100">Gadget</p>
+                            <p class="m-0 text-muted text-small w-15 w-sm-100">
+                                $300
+                                <del class="text-secondary">$400</del>
+                            </p>
+                            <p class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-badges">
+                                <span class="badge badge-danger">Sale</span>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="list-item col-md-12 p-0">
+                <div class="card o-hidden flex-row mb-4 d-flex">
+                    <div class="list-thumb d-flex">
+                        <!-- TUMBNAIL -->
+                        <img src="./assets/images/products/headphone-2.jpg" alt="">
+                    </div>
+                    <div class="flex-grow-1 pl-2 d-flex">
+                        <div class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center flex-lg-row">
+                            <!-- OTHER DATA -->
+                            <a href="" class="w-40 w-sm-100">
+                                <div class="item-title">Headphone 1</div>
+                            </a>
+                            <p class="m-0 text-muted text-small w-15 w-sm-100">Gadget</p>
+                            <p class="m-0 text-muted text-small w-15 w-sm-100">
+                                $300
+                                <del class="text-secondary">$400</del>
+                            </p>
+                            <p class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-badges">
+                                <span class="badge badge-primary">New</span>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="list-item col-md-12 p-0">
+                <div class="card o-hidden flex-row mb-4 d-flex">
+                    <div class="list-thumb d-flex">
+                        <!-- TUMBNAIL -->
+                        <img src="./assets/images/products/headphone-3.jpg" alt="">
+                    </div>
+                    <div class="flex-grow-1 pl-2 d-flex">
+                        <div class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center flex-lg-row">
+                            <!-- OTHER DATA -->
+                            <a href="" class="w-40 w-sm-100">
+                                <div class="item-title">Headphone 1</div>
+                            </a>
+                            <p class="m-0 text-muted text-small w-15 w-sm-100">Gadget</p>
+                            <p class="m-0 text-muted text-small w-15 w-sm-100">
+                                $300
+                                <del class="text-secondary">$400</del>
+                            </p>
+                            <p class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-badges">
+                                <span class="badge badge-primary">New</span>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="list-item col-md-12 p-0">
+                <div class="card o-hidden flex-row mb-4 d-flex">
+                    <div class="list-thumb d-flex">
+                        <!-- TUMBNAIL -->
+                        <img src="./assets/images/products/headphone-4.jpg" alt="">
+                    </div>
+                    <div class="flex-grow-1 pl-2 d-flex">
+                        <div class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center flex-lg-row">
+                            <!-- OTHER DATA -->
+                            <a href="" class="w-40 w-sm-100">
+                                <div class="item-title">Headphone 1</div>
+                            </a>
+                            <p class="m-0 text-muted text-small w-15 w-sm-100">Gadget</p>
+                            <p class="m-0 text-muted text-small w-15 w-sm-100">
+                                $300
+                                <del class="text-secondary">$400</del>
+                            </p>
+                            <p class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-badges">
+                                <span class="badge badge-primary">New</span>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- PAGINATION CONTROL -->
+        <div class="col-md-12 mt-5 text-center">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination d-inline-flex">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- ============ Search UI End ============= -->
+
+    <!-- common js -->
+    <script src="assets/js/vendor/jquery-3.3.1.min.js"></script>
+    <!-- <script src="assets/js/vendor/bootstrap.bundle.min.js"></script> -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="assets/js/vendor/perfect-scrollbar.min.js"></script>
+
+
+    <!-- global js -->
+    <script src="assets/js/es5/script.min.js"></script>
+
+    <!-- page script -->
+
+    <script>
+        // $('#basicToast').on('click', function() {
+        $('.toast').toast(
+                'show'
+            )
+            // })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+version: '3.5'
+
+volumes:
+  fpm-pid:
+  my-db:
+
+services:
+
+  ## APPLICATION SERVER
+
+  gcp-php-fpm:
+    container_name: gcp-php-fpm
+    build:
+      context: docker/containers/php74-fpm
+      args:
+        USER_ID: ${USER_ID-1000}
+        XDEBUG_REMOTE_HOST: ${HOST_IP-172.17.0.1}
+    ports:
+      - 9060:9000
+    networks:
+      - gcp-network
+    volumes:
+      - ./suite:/var/www/html
+      - fpm-pid:/run/php
+
+  gcp-www-nginx:
+    build:
+      context: docker/containers/nginx
+      args:
+        USER_ID: ${USER_ID-1000}
+    depends_on:
+      - gcp-php-fpm
+    ports:
+      - 8060:80
+    networks:
+      - gcp-network
+    volumes:
+      - ./docker/logs/nginx/:/var/log/nginx/
+      - ./suite/:/var/www/html
+
+
+  gcp-php-cli:
+    build:
+      context: docker/containers/php74-cli
+      args:
+        USER_ID: ${USER_ID-1000}
+    volumes:
+      - ~/.ssh:/home/php-user/.ssh
+      - ~/.gitconfig:/home/php-user/.gitconfig
+      - ~/.composer:/home/php-user/.composer
+      - ./suite/:/var/www/html
+      - $SSH_AUTH_SOCK:/ssh-agent
+    networks:
+      - gcp-network
+    environment:
+      - SSH_AUTH_SOCK=/ssh-agent
+    links:
+      - gcp-mongodb
+
+  gcp-mongodb:
+    image: mongo:4.2-bionic
+    container_name: 'gcp-mongodb'
+    volumes:
+      - ./docker/containers/mongo-last/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - ./docker/data/mongodb:/data/db
+      - ./docker/logs/mongodb:/var/log/mongodb/
+    ports:
+      - 27060:27017
+    networks:
+      - gcp-network
+
+  # MySQL
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      # So you don't have to use root, but you can if you like
+      MYSQL_USER: 'user'
+      # You can use whatever password you like
+      MYSQL_PASSWORD: 'password'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3306:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+      # Where our data will be persisted
+    volumes:
+      - my-db:/var/lib/mysql
+
+
+
+  gcp-encore:
+    build:
+      context: ./docker/containers/encore
+      args:
+        USER_ID: ${USER_ID-1000}
+    volumes:
+      - ./suite/:/var/www/html
+    networks:
+      - gcp-network
+
+  gcp-redis:
+    container_name: gcp-redis
+    build:
+      context: ./docker/containers/redis-6
+    volumes:
+      - ./docker/data/redis:/data
+    ports:
+      - 6360:6379
+    networks:
+      - gcp-network
+
+networks:
+  gcp-network:

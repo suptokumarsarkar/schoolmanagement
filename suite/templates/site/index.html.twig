@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DashBoard{% endblock %}
+
+{% block body %}
+    <div class="app-admin-wrap layout-sidebar-large clearfix">
+        <!-- ============ Load The Header ============ --> 
+        {% include('components/header.html.twig') %}
+        <!-- ============ Load The Menu  ============ --> 
+        {% include('components/menu.html.twig') %}
+        <!-- ============ Body content start ============= -->
+        {% include('components/body.html.twig') %}
+     </div>
+
+    <!-- ============ Search UI Start ============= -->
+    {% include('components/search.ui.html.twig') %}
+
+{% endblock %}
