@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+        <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('/src/assets/styles/css/themes/lite-purple.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('/plugins/selectize.css') }}">
+        <link rel="stylesheet" href="{{ asset('/src/assets/styles/vendor/perfect-scrollbar.css') }}">
+        <link rel="stylesheet" href="{{ asset('/src/assets/styles/vendor/sweetalert2.min.css') }}">
+        <style>
+
+            .icon {
+                margin: 25px;
+            }
+
+            .container {
+                background: white;
+                border-top: 7px solid #59c4a0;
+                border-radius: 20px;
+            }
+
+            .form-group .form-container {
+                border: 1px solid wheat;
+                padding: 10px;
+            }
+
+            .container header {
+                background: rgba(77, 234, 182, 0.85);
+                padding: 10px;
+                margin-bottom: 10px;
+            }
+
+            .container header h1 {
+                color: black;
+                text-align: center;
+                font-size: 50px;
+            }
+
+            .container header h4 {
+                text-align: center;
+                font-family: arial
+            }
+
+            .container label {
+                font-size: 20px;
+                color: #4a3232;
+            }
+
+            body {
+                background: url({{ asset("/images/register_bg.jpg") }});
+            }
+
+            .container .form-container ul {
+                color: red;
+            }
+
+        </style>
+    {% endblock %}
+    {{ encore_entry_script_tags('app') }}
+
+
+</head>
+<body>
+{% block body %}{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('/src/assets/js/vendor/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ asset('/src/assets/js/vendor/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('/src/assets/js/vendor/perfect-scrollbar.min.js') }}"></script>
+    <script src="{{ asset('/src/assets/js/vendor/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('/plugins/selectize.js') }}"></script>
+    <script>
+        function selectize() {
+            $('select').selectize();
+        }
+
+        selectize();
+    </script>
+{% endblock %}
+{% block jquery %}
+{% endblock %}
+</body>
+</html>

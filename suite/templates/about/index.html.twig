@@ -12,8 +12,11 @@
 
         <div class="main-content-wrap sidenav-open d-flex flex-column">
 
-            This is The About Part.
-            Time = {{ controller_name }}
+            This is The About Part.<br>
+            {% for time in timer %}
+                {{ time[0] }} => {{ time[1] }} <br>
+            {% endfor %}
+
         </div>
 
 

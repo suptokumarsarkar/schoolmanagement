@@ -33,4 +33,34 @@ Class TimeZone{
 //        Return Timezone
         return $CurTime;
     }
+
+    public function getTimezoneList(): array
+    {
+        static $timezones = null;
+        if ($timezones === null) {
+            $timezones = [];
+            $offsets = [];
+            $now = new \DateTime('now', new \DateTimeZone('UTC'));
+            foreach (\DateTimeZone::listIdentifiers(\DateTimeZone::ALL) as $timezone) {
+
+                // Calculate offset
+                $now->setTimezone(new \DateTimeZone($timezone));
+                $offsets[] = $offset = $now->getOffset();
+
+                // Display text for UTC offset
+                $hours = intval($offset / 3600);
+                $minutes = abs(intval($offset % 3600 / 60));
+                $utcDiff = 'UTC' . ($offset ? sprintf('%+03d:%02d', $hours, $minutes) : '');
+
+                // Display text for name
+                $name = str_replace('/', ', ',$timezone);
+                $name = str_replace('_', ' ', $name);
+                $name = str_replace('St ', 'St. ', $name);
+
+                $timezones["$name ($utcDiff)"] = $timezone;
+            }
+        }
+
+        return $timezones;
+    }
 }

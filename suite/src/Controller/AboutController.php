@@ -20,8 +20,20 @@ class AboutController extends AbstractController
      */
     public function index(): Response
     {
+        $contry = [
+            "Bangladesh" => "Asia/Dhaka",
+            "India" => "Asia/Kolkata",
+            "Ireland" => "Europe/Dublin",
+            "America" => "America/New_York",
+        ];
+
+        $timer = [];
+
+        foreach($contry as $key=>$value){
+            array_push($timer, [$key, $this->TimeZone->setTime(date("Y-m-d H:i:s"))->convoTime($value)]);
+        }
         return $this->render('about/index.html.twig', [
-            'controller_name' => $this->TimeZone->setTime(date("Y-m-d H:i:s"))->convoTime("Asia/Dhaka"),
+            'timer' => $timer,
         ]);
     }
 }

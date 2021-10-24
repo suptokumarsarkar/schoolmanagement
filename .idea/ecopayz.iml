@@ -142,5 +142,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="selectize" level="application" />
+    <orderEntry type="library" name="Jquery" level="application" />
   </component>
 </module>
