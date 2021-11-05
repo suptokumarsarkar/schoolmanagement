@@ -25,7 +25,7 @@
             {% if formErrors|length %}
                 <ul>
                     {% for error in formErrors %}
-                        <li class="alert alert-danger">{{ form_child(error.cause.propertyPath) }} : {{ error.message }}</li>
+                        <li class="alert alert-danger">{{ error.message }}</li>
                     {% endfor %}
                 </ul>
             {% endif %}
@@ -66,7 +66,33 @@
                 }) }}
             </div>
             <div class="form-group">
+                {{ form_row(form.Password,{
+                    attr: {
+                        class: 'form-control'
+                    },
+                    row_attr:{
+                        class: 'form-container'
+                    },
+                    label_attr: {
+                        class: 'form-label'
+                    }
+                }) }}
+            </div>
+            <div class="form-group">
                 {{ form_row(form.Whatsapp,{
+                    attr: {
+                        class: 'form-control'
+                    },
+                    row_attr:{
+                        class: 'form-container'
+                    },
+                    label_attr: {
+                        class: 'form-label'
+                    }
+                }) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.Telegram,{
                     attr: {
                         class: 'form-control'
                     },

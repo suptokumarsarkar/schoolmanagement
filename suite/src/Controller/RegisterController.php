@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Form\StudentType;
 use App\Service\DataService;
+use App\Service\LiveService;
+use App\Service\RegisterService;
 use App\Service\TimeZone;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -19,11 +21,15 @@ class RegisterController extends AbstractController
 {
     private TimeZone $timeZone;
     private DataService $DataService;
+    private RegisterService $RegisterService;
+    private LiveService $LiveService;
 
-    public function __construct(TimeZone $timeZone, DataService $DataService)
+    public function __construct(TimeZone $timeZone, DataService $DataService, RegisterService $RegisterService, LiveService $LiveService)
     {
         $this->timeZone = $timeZone;
         $this->DataService = $DataService;
+        $this->RegisterService = $RegisterService;
+        $this->LiveService = $LiveService;
     }
 
     /**
@@ -43,17 +49,15 @@ class RegisterController extends AbstractController
         $form = $this->createForm(StudentType::class, $student);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
-            $task = $form->getData();
-            dd($task);
-            // ... perform some action, such as saving the task to the database
-            // for example, if Task is a Doctrine entity, save it!
-            // $entityManager = $this->getDoctrine()->getManager();
-            // $entityManager->persist($task);
-            // $entityManager->flush();
 
-            return $this->redirectToRoute('task_success');
+            $task = $form->getData();
+
+            $this->RegisterService->registerStudent($task);
+
+            $this->addFlash('success', 'User Register Successfully.');
+
+
+            return $this->redirectToRoute('site');
         }
 
         return $this->render('register/student.html.twig', [

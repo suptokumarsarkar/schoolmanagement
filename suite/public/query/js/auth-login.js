@@ -9,7 +9,7 @@ function removeStudent(number) {
         swal({
             type: 'info',
             title: 'Sorry!',
-            text: '{{ tr("You have to register at least one student.") }}',
+            text: 'You have to register at least one student.',
             buttonsStyling: false,
             confirmButtonClass: 'btn btn-lg btn-info'
         })

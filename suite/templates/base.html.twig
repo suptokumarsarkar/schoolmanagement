@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="{{ asset('/src/assets/styles/vendor/perfect-scrollbar.css') }}">
         <link rel="stylesheet" href="{{ asset('/plugins/selectize.css') }}">
         <link rel="stylesheet" href="{{ asset('/src/assets/styles/vendor/sweetalert2.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('/src/assets/styles/vendor/toastr.css') }}">
 
     {% endblock %}
     {{ encore_entry_script_tags('app') }}
@@ -22,6 +23,8 @@
 
 </head>
 <body>
+
+
 {% block body %}{% endblock %}
 
 {% block javascripts %}
@@ -29,6 +32,7 @@
     <script src="{{ asset('/src/assets/js/vendor/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('/src/assets/js/vendor/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('/src/assets/js/vendor/echarts.min.js') }}"></script>
+    <script src="{{ asset('/src/assets/js/vendor/toastr.min.js') }}"></script>
     <script src="{{ asset('/src/assets/js/vendor/datatables.min.js') }}"></script>
     <script src="{{ asset('/src/assets/js/vendor/sweetalert2.min.js') }}"></script>
 
@@ -42,6 +46,15 @@
 {% endblock %}
 
 {% block jquery %}
+    {% for type, messages in app.flashes %}
+        {% for message in messages %}
+            <script>
+                toastr.{{ type }}('{{ message }}', {
+                    timeOut: "50000",
+                })
+            </script>
+        {% endfor %}
+    {% endfor %}
 {% endblock %}
 </body>
 </html>
