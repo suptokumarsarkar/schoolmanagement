@@ -19,6 +19,11 @@ class GuardianRepository extends ServiceEntityRepository
         parent::__construct($registry, Guardian::class);
     }
 
+    public function getData($id): ?Guardian
+    {
+        return $this->find($id);
+    }
+
     // /**
     //  * @return Guardian[] Returns an array of Guardian objects
     //  */

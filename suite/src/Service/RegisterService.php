@@ -3,18 +3,22 @@
 namespace App\Service;
 
 use App\Entity\Guardian;
+use App\Entity\LoginInfo;
 use App\Entity\Student;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class RegisterService
 {
     private EntityManagerInterface $em;
     private LiveService $LiveService;
+    private UserPasswordHasherInterface $passwordEncoder;
 
-    function __construct(EntityManagerInterface $em, LiveService $liveService)
+    function __construct(EntityManagerInterface $em, LiveService $liveService, UserPasswordHasherInterface $passwordHasherEncoder)
     {
         $this->em = $em;
         $this->LiveService = $liveService;
+        $this->passwordEncoder = $passwordHasherEncoder;
     }
     public function registerStudent($form)
     {
@@ -42,7 +46,22 @@ class RegisterService
 
             $this->em->persist($user);
             $this->em->flush();
+
+//            $this->registerUser($user->getEmail(), $user->getPassword(), $user->getId(), "student", ['ROLE_USER']);
         }
+    }
+
+    public function registerUser($email, $password, $id, $table, $role){
+        $user = new LoginInfo;
+        $user->setEmail($email);
+        $user->setPassword($this->passwordEncoder->hashPassword($user, $password));
+        $user->setRoles($role);
+        $user->setUserId($id);
+        $user->setUserTableName($table);
+
+        $this->em->persist($user);
+        $this->em->flush();
+
     }
 
     public function registerGuardian($form)
@@ -61,7 +80,10 @@ class RegisterService
         $user->setPossibleStartingDate($form['PossibleDate']->format("Y-m-d"));
         $user->setClassDetails($this->manageClassDetails($form));
         $user->setProfilePicture($this->LiveService->moveUploadedFile($form['ProfilePicture'], "public/uploads/", "profile_".time()));
-        $user->setPassword(md5($form['Password']));
+        $user->setPassword($form['Password']);
+
+        $this->registerUser($user->getEmail(), $user->getPassword(), $user->getId(), "guardian", ['ROLE_USER']);
+
 
 
         $this->em->persist($user);

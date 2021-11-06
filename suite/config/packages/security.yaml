@@ -21,11 +21,16 @@ security:
         main:
             lazy: true
             provider: app_user_provider
-            custom_authenticator: App\Security\LoginFromAuthenicatorAuthenticator
+            custom_authenticator: App\Security\LoginFromAuthenticator
             logout:
                 path: app_logout
                 # where to redirect after logout
-                # target: app_any_route
+                target: app_login
+
+            remember_me:
+                name: COOKIE_LOGIN
+                secret: '%kernel.secret%.'
+                lifetime: 604800
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -36,5 +41,6 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+#         - { path: ^/admin, roles: ROLE_ADMIN }
+#         - { path: ^/, roles: ROLE_USER }
+#         - { path: ^/(login|register), roles: IS_AUTHENTICATED_ANYMOUSELY }

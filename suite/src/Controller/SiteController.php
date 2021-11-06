@@ -13,7 +13,10 @@ class SiteController extends AbstractController
      */
     public function index(): Response
     {
-
+        if(!$this->get('security.authorization_checker')->isGranted('ROLE_USER'))
+        {
+            return $this->redirectToRoute('app_login');
+        }
         return $this->render('site/index.html.twig', [
             'controller_name' => 'SiteController',
         ]);

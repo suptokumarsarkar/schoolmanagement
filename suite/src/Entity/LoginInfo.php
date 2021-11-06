@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\LoginInfoRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -44,6 +45,8 @@ class LoginInfo implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $UserTableName;
+
+
 
     public function getId(): ?int
     {

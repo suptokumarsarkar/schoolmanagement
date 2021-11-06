@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ *
  * @Route("/register", name="register")
  */
 class RegisterController extends AbstractController
@@ -38,6 +39,7 @@ class RegisterController extends AbstractController
     public function index(): Response
     {
         return $this->redirectToRoute("register_student");
+        $this->getDoctrine();
     }
 
     /**
@@ -97,7 +99,7 @@ class RegisterController extends AbstractController
             return $this->redirectToRoute('task_success');
         }
 
-        return $this->render('register/student.html.twig', [
+        return $this->render('register/teacher.html.twig', [
             'form' => $form->createView()
         ]);
     }

@@ -2,6 +2,9 @@
 
 namespace App\Twig;
 
+use App\Entity\Guardian;
+use App\Repository\GuardianRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Asset\Package;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 use Twig\Extension\AbstractExtension;
@@ -10,10 +13,12 @@ use Twig\TwigFunction;
 class HelperExtension extends AbstractExtension
 {
     private Package $package;
+    private EntityManagerInterface $em;
 
-    public function __construct()
+    public function __construct(EntityManagerInterface $em)
     {
         $this->package = new Package(new EmptyVersionStrategy());
+        $this->em = $em;
     }
 
     public function getFunctions(): array
@@ -24,6 +29,7 @@ class HelperExtension extends AbstractExtension
             new TwigFunction('tr', [$this, 'tr']),
             new TwigFunction('dd', [$this, 'debug']),
             new TwigFunction('form_child', [$this, 'form_child']),
+//            new TwigFunction('getData', [$this, 'getData']),
         ];
     }
 
@@ -53,4 +59,24 @@ class HelperExtension extends AbstractExtension
         $ar = explode("[", $string);
         return substr(ar[1],0,-1);
     }
+
+//    public function getData($user)
+//    {
+//        if($user->getUserTableName() == 'guardian')
+//        {
+//            return $this->em->getRepository(Guardian::class)->find($user->getUserId());
+//        }
+//
+//        if($user->getUserTableName() == 'student')
+//        {
+//            return $this->em->getRepository("Student")->find($user->getUserId());
+//        }
+//
+//        if($user->getUserTableName() == 'teacher')
+//        {
+//            return $this->em->getRepository("Teacher")->find($user->getUserId());
+//        }
+//
+//        return $user;
+//    }
 }
