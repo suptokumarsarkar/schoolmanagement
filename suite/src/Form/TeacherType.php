@@ -41,6 +41,7 @@ class TeacherType extends AbstractType
             ])
             ->add("BirthDate", DateType::class, [
                 'label' => "Birth Date",
+                'years'=>range(1950, 2200),
             ])
             ->add("NationalIdNumber", TextType::class, [
                 'label' => "National ID Number"

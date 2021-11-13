@@ -22,6 +22,7 @@ class StudentType extends AbstractType
 {
     private DataService $DataService;
     private TimeZone $timeZone;
+
     function __construct(DataService $dataService, TimeZone $timeZone)
     {
         $this->DataService = $dataService;
@@ -53,17 +54,16 @@ class StudentType extends AbstractType
                 'label' => "State"
             ])
             ->add("Country", ChoiceType::class, [
-                'choices'  => $this->DataService->getCountries(),
+                'choices' => $this->DataService->getCountries(),
                 'label' => "Country"
             ])
             ->add("ProfilePicture", FileType::class, [
                 'label' => "Profile Picture"
             ])
             ->add("Timezone", ChoiceType::class, [
-                'choices'  => $this->timeZone->getTimezoneList(),
+                'choices' => $this->timeZone->getTimezoneList(),
                 'label' => "Timezone"
             ])
-
             /*
              * Second Page
              * This Data will Come After Clicking The next Button
@@ -73,12 +73,13 @@ class StudentType extends AbstractType
 
             ])
             ->add("StudentDetails", HiddenType::class)
-
             ->add("TimesAweek", NumberType::class, [
                 'label' => "How Many Times a Week?"
             ])
             ->add("PossibleDate", DateType::class, [
-                'label' => "Possible Starting Date"
+                'label' => "Possible Starting Date",
+                'years' => range(date("Y"), 2200),
+
             ])
             ->add("AdditionalNote", TextareaType::class, [
                 'label' => "Additional Note",
@@ -88,54 +89,50 @@ class StudentType extends AbstractType
             // Date and Time Selection
 
             ->add("Saturday", ChoiceType::class, [
-                'choices'  => $this->DataService->getTimes(),
+                'choices' => $this->DataService->getTimes(),
                 'multiple' => true,
                 'required' => false,
                 'label' => "Saturday"
             ])
             ->add("Sunday", ChoiceType::class, [
-                'choices'  => $this->DataService->getTimes(),
+                'choices' => $this->DataService->getTimes(),
                 'multiple' => true,
                 'required' => false,
                 'label' => "Sunday"
             ])
             ->add("Monday", ChoiceType::class, [
-                'choices'  => $this->DataService->getTimes(),
+                'choices' => $this->DataService->getTimes(),
                 'multiple' => true,
                 'required' => false,
                 'label' => "Monday"
             ])
             ->add("Tuesday", ChoiceType::class, [
-                'choices'  => $this->DataService->getTimes(),
+                'choices' => $this->DataService->getTimes(),
                 'multiple' => true,
                 'required' => false,
                 'label' => "Tuesday"
             ])
             ->add("Wednesday", ChoiceType::class, [
-                'choices'  => $this->DataService->getTimes(),
+                'choices' => $this->DataService->getTimes(),
                 'multiple' => true,
                 'required' => false,
                 'label' => "Wednesday"
             ])
             ->add("Thursday", ChoiceType::class, [
-                'choices'  => $this->DataService->getTimes(),
+                'choices' => $this->DataService->getTimes(),
                 'multiple' => true,
                 'required' => false,
                 'label' => "Thursday"
             ])
             ->add("Friday", ChoiceType::class, [
-                'choices'  => $this->DataService->getTimes(),
+                'choices' => $this->DataService->getTimes(),
                 'multiple' => true,
                 'required' => false,
                 'label' => "Friday"
             ])
-
-
-
             ->add("Register", SubmitType::class, [
                 'label' => "Register"
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
