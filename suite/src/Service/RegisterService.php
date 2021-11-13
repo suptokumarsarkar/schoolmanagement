@@ -79,10 +79,9 @@ class RegisterService
         $user->setTimezone($form['Timezone']);
         $user->setPossibleStartingDate($form['PossibleDate']->format("Y-m-d"));
         $user->setClassDetails($this->manageClassDetails($form));
-        $user->setProfilePicture($this->LiveService->moveUploadedFile($form['ProfilePicture'], "public/uploads/", "profile_".time()));
+        $user->setProfilePicture($this->LiveService->moveUploadedFile($form['ProfilePicture'], "public/uploads/","uploads/", "profile_".time()));
         $user->setPassword($form['Password']);
 
-        $this->registerUser($user->getEmail(), $user->getPassword(), $user->getId(), "guardian", ['ROLE_USER']);
 
 
 
@@ -91,6 +90,7 @@ class RegisterService
         // actually executes the queries (i.e. the INSERT query)
         $this->em->flush();
 
+        $this->registerUser($user->getEmail(), $user->getPassword(), $user->getId(), "guardian", ['ROLE_USER']);
         return $user;
 
 

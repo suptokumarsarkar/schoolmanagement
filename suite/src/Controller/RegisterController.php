@@ -15,22 +15,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- *
  * @Route("/register", name="register")
  */
 class RegisterController extends AbstractController
 {
-    private TimeZone $timeZone;
-    private DataService $DataService;
     private RegisterService $RegisterService;
-    private LiveService $LiveService;
 
-    public function __construct(TimeZone $timeZone, DataService $DataService, RegisterService $RegisterService, LiveService $LiveService)
+    public function __construct(RegisterService $RegisterService)
     {
-        $this->timeZone = $timeZone;
-        $this->DataService = $DataService;
         $this->RegisterService = $RegisterService;
-        $this->LiveService = $LiveService;
     }
 
     /**
@@ -39,7 +32,6 @@ class RegisterController extends AbstractController
     public function index(): Response
     {
         return $this->redirectToRoute("register_student");
-        $this->getDoctrine();
     }
 
     /**
@@ -73,15 +65,8 @@ class RegisterController extends AbstractController
      */
     public function teacher(Request $request): Response
     {
-        $student = [];
-        $form = $this->createFormBuilder($student)
-            ->add("GuardianName", TextType::class, [
-                'label' => "Guardian Name"
-            ])
-            ->add("Register", SubmitType::class, [
-                'label' => "Register"
-            ])
-            ->getForm();
+        $teacher = [];
+        $form = $this->createForm(StudentType::class, $teacher);
 
         $form->handleRequest($request);
 

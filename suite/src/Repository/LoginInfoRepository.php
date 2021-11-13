@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Guardian;
 use App\Entity\LoginInfo;
+use App\Entity\Student;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -34,6 +36,15 @@ class LoginInfoRepository extends ServiceEntityRepository implements PasswordUpg
         $user->setPassword($newHashedPassword);
         $this->_em->persist($user);
         $this->_em->flush();
+    }
+
+    public function info(LoginInfo $user){
+        if($user->getUserTableName() == 'guardian'){
+            return $this->_em->getRepository(Guardian::class)->find($user->getUserId());
+        }
+        if($user->getUserTableName() == 'student') {
+            return $this->_em->getRepository(Student::class)->find($user->getUserId());
+        }
     }
 
     // /**

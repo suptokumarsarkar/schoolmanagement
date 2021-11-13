@@ -150,7 +150,7 @@
                 <!-- User avatar dropdown -->
                 <div class="dropdown">
                     <div class="user colalign-self-end">
-                        <img src="{{asset("/src/assets/images/faces/1.jpg")}}" id="userDropdown" alt="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="{{ asset(details(app.user).getProfilePicture()) }}" id="userDropdown" alt="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                             <div class="dropdown-header">

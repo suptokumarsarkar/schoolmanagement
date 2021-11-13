@@ -4,6 +4,8 @@ namespace App\Twig;
 
 use App\Entity\Guardian;
 use App\Repository\GuardianRepository;
+use App\Repository\LoginInfoRepository;
+use App\Service\LiveService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Asset\Package;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
@@ -14,11 +16,13 @@ class HelperExtension extends AbstractExtension
 {
     private Package $package;
     private EntityManagerInterface $em;
+    private LoginInfoRepository $loginInfoRepository;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em,LoginInfoRepository $loginInfoRepository)
     {
         $this->package = new Package(new EmptyVersionStrategy());
         $this->em = $em;
+        $this->loginInfoRepository = $loginInfoRepository;
     }
 
     public function getFunctions(): array
@@ -29,7 +33,7 @@ class HelperExtension extends AbstractExtension
             new TwigFunction('tr', [$this, 'tr']),
             new TwigFunction('dd', [$this, 'debug']),
             new TwigFunction('form_child', [$this, 'form_child']),
-//            new TwigFunction('getData', [$this, 'getData']),
+            new TwigFunction('details', [$this, 'getData']),
         ];
     }
 
@@ -60,23 +64,8 @@ class HelperExtension extends AbstractExtension
         return substr(ar[1],0,-1);
     }
 
-//    public function getData($user)
-//    {
-//        if($user->getUserTableName() == 'guardian')
-//        {
-//            return $this->em->getRepository(Guardian::class)->find($user->getUserId());
-//        }
-//
-//        if($user->getUserTableName() == 'student')
-//        {
-//            return $this->em->getRepository("Student")->find($user->getUserId());
-//        }
-//
-//        if($user->getUserTableName() == 'teacher')
-//        {
-//            return $this->em->getRepository("Teacher")->find($user->getUserId());
-//        }
-//
-//        return $user;
-//    }
+    public function getData($user)
+    {
+        return $this->loginInfoRepository->info($user);
+    }
 }

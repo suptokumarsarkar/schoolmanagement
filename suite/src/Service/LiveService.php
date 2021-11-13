@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Repository\LoginInfoRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -12,7 +13,7 @@ class LiveService
     function __construct(KernelInterface $kernel){
         $this->publicPath = $kernel->getProjectDir();
     }
-    public function moveUploadedFile(UploadedFile $file, $relativePath, $fileName)
+    public function moveUploadedFile(UploadedFile $file, $relativePath,$dbPath, $fileName)
     {
         $originalName = $file->getFilename();
         $uploadBasePath = $this->publicPath;
@@ -40,6 +41,7 @@ class LiveService
         //$file->move($targetDir, basename($targetFilePath));
         //$file->move($targetDir, basename($fileName.'.'.$ext));
         $file->move($targetDir, basename($fileName).".".$file->getClientOriginalExtension());
-        return $relativePath . basename($fileName).".".$file->getClientOriginalExtension();
+        return $dbPath . basename($fileName).".".$file->getClientOriginalExtension();
     }
+
 }
