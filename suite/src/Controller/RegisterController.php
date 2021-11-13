@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\StudentType;
+use App\Form\TeacherType;
 use App\Service\DataService;
 use App\Service\LiveService;
 use App\Service\RegisterService;
@@ -48,7 +49,7 @@ class RegisterController extends AbstractController
 
             $this->RegisterService->registerStudent($task);
 
-            $this->addFlash('success', 'User Register Successfully.');
+            $this->addFlash('success', 'User Registered Successfully.');
 
 
             return $this->redirectToRoute('site');
@@ -66,7 +67,7 @@ class RegisterController extends AbstractController
     public function teacher(Request $request): Response
     {
         $teacher = [];
-        $form = $this->createForm(StudentType::class, $teacher);
+        $form = $this->createForm(TeacherType::class, $teacher);
 
         $form->handleRequest($request);
 
@@ -74,14 +75,13 @@ class RegisterController extends AbstractController
             // $form->getData() holds the submitted values
             // but, the original `$task` variable has also been updated
             $task = $form->getData();
-//            dd($task);
-            // ... perform some action, such as saving the task to the database
-            // for example, if Task is a Doctrine entity, save it!
-            // $entityManager = $this->getDoctrine()->getManager();
-            // $entityManager->persist($task);
-            // $entityManager->flush();
 
-            return $this->redirectToRoute('task_success');
+            $this->RegisterService->registerTeacher($task);
+
+            $this->addFlash('success', 'Teacher Registered Successfully.');
+
+
+            return $this->redirectToRoute('site');
         }
 
         return $this->render('register/teacher.html.twig', [

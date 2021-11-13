@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\Guardian;
 use App\Entity\LoginInfo;
 use App\Entity\Student;
+use App\Entity\Teacher;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -92,8 +93,6 @@ class RegisterService
 
         $this->registerUser($user->getEmail(), $user->getPassword(), $user->getId(), "guardian", ['ROLE_USER']);
         return $user;
-
-
     }
 
     public function manageClassDetails($form): string
@@ -101,6 +100,39 @@ class RegisterService
         $class = [];
         array_push($class, $form['Saturday'], $form['Sunday'], $form['Monday'], $form['Tuesday'], $form['Wednesday'], $form['Thursday'], $form['Friday']);
         return json_encode($class);
+    }
+
+    public function registerTeacher($form)
+    {
+        $user = new Teacher;
+        $user->setFullName($form['FullName']);
+        $user->setEmail($form['Email']);
+        $user->setWhatsapp($form['Whatsapp']);
+        $user->setCity($form['City']);
+        $user->setStreetAddress($form['StreetAddress']);
+        $user->setCountry($form['Country']);
+        $user->setBirthDate($form['BirthDate']->format("Y-m-d"));
+        $user->setNationalIdNumber($form['NationalIdNumber']);
+        $user->setTimezone($form['Timezone']);
+        $user->setAvailableTimes($this->manageClassDetails($form));
+        $user->setProfilePicture($this->LiveService->moveUploadedFile($form['ProfilePicture'], "public/uploads/","uploads/", "profile_".time()));
+        $user->setIdPhotoCopy($this->LiveService->moveUploadedFile($form['IdPhotoCopy'], "public/uploads/","uploads/", "profile_".time()));
+        $user->setCertificatesPhotoCopy($this->LiveService->moveUploadedFile($form['CertificatesPhotoCopy'], "public/uploads/","uploads/", "profile_".time()));
+        $user->setResume($this->LiveService->moveUploadedFile($form['Resume'], "public/uploads/","uploads/", "profile_".time()));
+        $user->setPassword($form['password']);
+        $user->setZoomLink($form['ZoomLink']);
+        $user->setAddress($form['StreetAddress']);
+        $user->setGender($form['Gender']);
+        $user->setNationality($form['Nationality']);
+        $user->setJobDescription($form['JobDescription']);
+        $user->setBioGraphy($form['BioGraphy']);
+
+        $this->em->persist($user);
+
+        // actually executes the queries (i.e. the INSERT query)
+        $this->em->flush();
+
+        $this->registerUser($user->getEmail(), $user->getPassword(), $user->getId(), "teacher", ['ROLE_TEACHER']);
     }
 
 }

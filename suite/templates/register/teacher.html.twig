@@ -1,1 +1,476 @@
-This is hidden now due to not completed.
+{% extends 'auth.html.twig' %}
+
+{% block title %}Teacher Register{% endblock %}
+
+{% block body %}
+    <div class="icon text-center">
+        <img src="{{ soft("icon") }}" alt="{{ soft("name") }}" width="100px">
+    </div>
+    <div class="container">
+        <header>
+            <h1>Register</h1>
+            <h4> Personal Information </h4>
+        </header>
+        {{ form_start(form,{
+            'attr':{
+                'onSubmit':"loadForm(event,this)"
+            }
+        }) }}
+        <div>
+
+            {# For convenience sake of this snippet, store the errors in a variable #}
+            {% set formErrors = form.vars.errors.form.getErrors(true) %}
+
+            {# If there are errors in the form, display them in this unorganized list #}
+            {% if formErrors|length %}
+                <ul>
+                    {% for error in formErrors %}
+                        <li class="alert alert-danger">{{ error.message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+
+            {{ form_errors(form,{
+                row_attr:{
+                    class: "alert alert-danger"
+                }
+            }) }}
+        </div>
+        <div class="first-page">
+            <div class="form-group">
+
+                {{ form_row(form.FullName, {
+                    attr: {
+                        class: 'form-control'
+                    },
+                    row_attr:{
+                        class: 'form-container'
+                    },
+                    label_attr: {
+                        class: 'form-label'
+                    }
+                }) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.Email,{
+                    attr: {
+                        class: 'form-control'
+                    },
+                    row_attr:{
+                        class: 'form-container'
+                    },
+                    label_attr: {
+                        class: 'form-label'
+                    }
+                }) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.password,{
+                    attr: {
+                        class: 'form-control'
+                    },
+                    row_attr:{
+                        class: 'form-container'
+                    },
+                    label_attr: {
+                        class: 'form-label'
+                    }
+                }) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.Whatsapp,{
+                    attr: {
+                        class: 'form-control'
+                    },
+                    row_attr:{
+                        class: 'form-container'
+                    },
+                    label_attr: {
+                        class: 'form-label'
+                    }
+                }) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_row(form.ZoomLink,{
+                    attr: {
+                        class: 'form-control'
+                    },
+                    row_attr:{
+                        class: 'form-container'
+                    },
+                    label_attr: {
+                        class: 'form-label'
+                    }
+                }) }}
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        {{ form_row(form.Gender,{
+
+                            row_attr:{
+                                class: 'form-container'
+                            },
+                            label_attr: {
+                                class: 'form-label'
+                            }
+                        }) }}
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        {{ form_row(form.Timezone,{
+                            label_attr: {
+                                class: 'form-label'
+                            },
+                            row_attr:{
+                                class: 'form-container'
+                            }
+                        }) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_row(form.NationalIdNumber,{
+                    attr: {
+                        class: 'form-control'
+                    },
+                    row_attr:{
+                        class: 'form-container'
+                    },
+                    label_attr: {
+                        class: 'form-label'
+                    }
+                }) }}
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group">
+                        {{ form_row(form.ProfilePicture,{
+                            attr: {
+                                class: 'form-control'
+                            },
+                            row_attr:{
+                                class: 'form-container'
+                            },
+                            label_attr: {
+                                class: 'form-label'
+                            }
+                        }) }}
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group">
+                        {{ form_row(form.IdPhotoCopy,{
+                            attr: {
+                                class: 'form-control'
+                            },
+                            row_attr:{
+                                class: 'form-container'
+                            },
+                            label_attr: {
+                                class: 'form-label'
+                            }
+                        }) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group">
+                        {{ form_row(form.CertificatesPhotoCopy,{
+                            attr: {
+                                class: 'form-control'
+                            },
+                            row_attr:{
+                                class: 'form-container'
+                            },
+                            label_attr: {
+                                class: 'form-label'
+                            }
+                        }) }}
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group">
+                        {{ form_row(form.Resume,{
+                            attr: {
+                                class: 'form-control'
+                            },
+                            row_attr:{
+                                class: 'form-container'
+                            },
+                            label_attr: {
+                                class: 'form-label'
+                            }
+                        }) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+
+                        {{ form_row(form.City,{
+                            attr: {
+                                class: 'form-control'
+                            },
+                            row_attr:{
+                                class: 'form-container'
+                            },
+                            label_attr: {
+                                class: 'form-label'
+                            }
+                        }) }}
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+
+                        {{ form_row(form.StreetAddress,{
+                            attr: {
+                                class: 'form-control'
+                            },
+                            row_attr:{
+                                class: 'form-container'
+                            },
+                            label_attr: {
+                                class: 'form-label'
+                            }
+                        }) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+
+                        {{ form_row(form.Nationality,{
+                            attr: {
+                                class: 'form-control'
+                            },
+                            row_attr:{
+                                class: 'form-container'
+                            },
+                            label_attr: {
+                                class: 'form-label'
+                            }
+                        }) }}
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+
+                        {{ form_row(form.Country,{
+                            label_attr: {
+                                class: 'form-label'
+                            },
+
+                            row_attr:{
+                                class: 'form-container'
+                            }
+                        }) }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <div class="form-container">
+                <h2>{{ tr("Available Times") }}</h2>
+            </div>
+        </div>
+
+
+        <div class="third-page">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form_row(form.Saturday,{
+                            label_attr: {
+                                class: 'form-label',
+                            },
+
+                            row_attr:{
+                                class: 'form-container'
+                            }
+                        }) }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form_row(form.Sunday,{
+                            label_attr: {
+                                class: 'form-label',
+                            },
+
+                            row_attr:{
+                                class: 'form-container'
+                            }
+                        }) }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form_row(form.Monday,{
+                            label_attr: {
+                                class: 'form-label',
+                            },
+
+                            row_attr:{
+                                class: 'form-container'
+                            }
+                        }) }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form_row(form.Tuesday,{
+                            label_attr: {
+                                class: 'form-label',
+                            },
+
+                            row_attr:{
+                                class: 'form-container'
+                            }
+                        }) }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form_row(form.Wednesday,{
+                            label_attr: {
+                                class: 'form-label',
+                            },
+
+                            row_attr:{
+                                class: 'form-container'
+                            }
+                        }) }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form_row(form.Thursday,{
+                            label_attr: {
+                                class: 'form-label',
+                            },
+
+                            row_attr:{
+                                class: 'form-container'
+                            }
+                        }) }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form_row(form.Friday,{
+                            label_attr: {
+                                class: 'form-label',
+                            },
+
+                            row_attr:{
+                                class: 'form-container'
+                            }
+                        }) }}
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        {{ form_row(form.BirthDate,{
+                            label_attr: {
+                                class: 'form-label',
+                            },
+                            attr: {
+                                class: 'possibleDate'
+                            },
+                            row_attr:{
+                                class: 'form-container'
+                            }
+                        }) }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group" style="overflow: hidden">
+                        {{ form_row(form.BioGraphy,{
+                            attr: {
+                                class: 'form-control'
+                            },
+                            row_attr:{
+                                class: 'form-container'
+                            },
+                            label_attr: {
+                                class: 'form-label'
+                            }
+                        }) }}
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group" style="overflow: hidden">
+                        {{ form_row(form.JobDescription,{
+                            attr: {
+                                class: 'form-control'
+                            },
+                            row_attr:{
+                                class: 'form-container'
+                            },
+                            label_attr: {
+                                class: 'form-label'
+                            }
+                        }) }}
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group" style="overflow: hidden">
+                {{ form_row(form.Register,{
+                    attr: {
+                        class: 'btn btn-info'
+                    },
+                    row_attr:{
+                        class: 'form-container'
+                    },
+                    label_attr: {
+                        class: 'form-label'
+                    }
+                }) }}
+
+                <div class="float-right">
+                    <a href="{{ url("app_login") }}" class="btn btn-link">Login</a>
+                    <a href="{{ url("register_student") }}" class="btn btn-link">Guardian Register</a>
+                </div>
+            </div>
+        </div>
+        <style>
+            .possibleDate .single {
+                width: 30%;
+                display: inline-block;
+                margin: 1%;
+            }
+        </style>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block jquery %}
+    <script src="{{ asset('/query/js/auth-login.js') }}"></script>
+{% endblock %}

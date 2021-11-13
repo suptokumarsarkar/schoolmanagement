@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Guardian;
 use App\Entity\LoginInfo;
 use App\Entity\Student;
+use App\Entity\Teacher;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -44,6 +45,9 @@ class LoginInfoRepository extends ServiceEntityRepository implements PasswordUpg
         }
         if($user->getUserTableName() == 'student') {
             return $this->_em->getRepository(Student::class)->find($user->getUserId());
+        }
+        if($user->getUserTableName() == 'teacher') {
+            return $this->_em->getRepository(Teacher::class)->find($user->getUserId());
         }
     }
 

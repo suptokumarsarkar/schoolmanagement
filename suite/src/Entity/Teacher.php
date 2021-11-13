@@ -137,6 +137,11 @@ class Teacher
      */
     private $Resume;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $password;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -426,6 +431,18 @@ class Teacher
     public function setResume(?string $Resume): self
     {
         $this->Resume = $Resume;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
 
         return $this;
     }
