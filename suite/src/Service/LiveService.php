@@ -3,15 +3,18 @@
 namespace App\Service;
 
 use App\Repository\LoginInfoRepository;
+use App\Service\LiveServices\SettingService;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 class LiveService
 {
     public $publicPath;
+    public SettingService $settings;
 
-    function __construct(KernelInterface $kernel){
+    function __construct(KernelInterface $kernel, SettingService $settings){
         $this->publicPath = $kernel->getProjectDir();
+        $this->settings = $settings;
     }
     public function moveUploadedFile(UploadedFile $file, $relativePath,$dbPath, $fileName)
     {

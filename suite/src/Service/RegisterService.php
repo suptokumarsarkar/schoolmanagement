@@ -135,4 +135,14 @@ class RegisterService
         $this->registerUser($user->getEmail(), $user->getPassword(), $user->getId(), "teacher", ['ROLE_TEACHER']);
     }
 
+    public function registerAdmin($form)
+    {
+        if($form['Secret'] == $this->LiveService->settings->ADMIN_SECRET){
+            $this->registerUser($form['Email'], $form['Password'], null, "admin", ['ROLE_ADMIN']);
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
 }

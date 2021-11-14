@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\AdminType;
 use App\Form\StudentType;
 use App\Form\TeacherType;
 use App\Service\DataService;
@@ -28,11 +29,39 @@ class RegisterController extends AbstractController
     }
 
     /**
-     * @Route("/", name="_index")
+     * @Route("", name="_index")
      */
     public function index(): Response
     {
         return $this->redirectToRoute("register_student");
+    }
+
+    /**
+     * @Route("/admin", name="_admin")
+     */
+    public function admin(Request $request): Response
+    {
+        $admin = [];
+        $form = $this->createForm(AdminType::class, $admin);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $task = $form->getData();
+
+
+            if ($this->RegisterService->registerAdmin($task)){
+                $this->addFlash('success', 'Admin Registered Successfully.');
+            }else{
+                $this->addFlash('error', 'Admin Registration Failed.');
+            }
+
+
+            return $this->redirectToRoute('site');
+        }
+
+        return $this->render('register/admin.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     /**

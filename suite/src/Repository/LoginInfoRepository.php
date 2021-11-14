@@ -6,6 +6,7 @@ use App\Entity\Guardian;
 use App\Entity\LoginInfo;
 use App\Entity\Student;
 use App\Entity\Teacher;
+use App\Service\LiveService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -20,9 +21,12 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
  */
 class LoginInfoRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    private LiveService $liveService;
+
+    public function __construct(ManagerRegistry $registry, LiveService $liveService)
     {
         parent::__construct($registry, LoginInfo::class);
+        $this->liveService = $liveService;
     }
 
     /**
@@ -49,6 +53,12 @@ class LoginInfoRepository extends ServiceEntityRepository implements PasswordUpg
         if($user->getUserTableName() == 'teacher') {
             return $this->_em->getRepository(Teacher::class)->find($user->getUserId());
         }
+        if($user->getUserTableName() == 'admin') {
+            $admin = new Teacher;
+            $admin->setProfilePicture($this->liveService->settings->LOGO);
+            return $admin;
+        }
+
     }
 
     // /**
