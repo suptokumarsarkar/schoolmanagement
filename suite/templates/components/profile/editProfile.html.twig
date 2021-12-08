@@ -1,0 +1,108 @@
+<div class="main-content-wrap sidenav-open d-flex flex-column">
+    <div class="container  card p-5">
+
+        {{ form_start(form,{
+            'attr':{
+                'onSubmit':"loadForm(event,this)"
+            }
+        }) }}
+        <div>
+
+            {# For convenience sake of this snippet, store the errors in a variable #}
+            {% set formErrors = form.vars.errors.form.getErrors(true) %}
+
+            {# If there are errors in the form, display them in this unorganized list #}
+            {% if formErrors|length %}
+                <ul>
+                    {% for error in formErrors %}
+                        <li class="alert alert-danger">{{ error.message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+
+            {{ form_errors(form,{
+                row_attr:{
+                    class: "alert alert-danger"
+                }
+            }) }}
+        </div>
+        <div class="first-page">
+
+            <div class="form-group">
+                {{ form_row(form.Email,{
+                    attr: {
+                        class: 'form-control',
+                    },
+                    row_attr:{
+                        class: 'form-container'
+                    },
+                    label_attr: {
+                        class: 'form-label'
+                    }
+                }) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.Password,{
+                    attr: {
+                        class: 'form-control',
+                        placeholder:tr("New Password or Leave it empty")
+                    },
+                    row_attr:{
+                        class: 'form-container'
+                    },
+                    label_attr: {
+                        class: 'form-label'
+                    }
+                }) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.Timezone,{
+                    row_attr:{
+                        class: 'form-container timezoneContainer',
+                        value: details(app.user).getTimezone()
+                    },
+                    label_attr: {
+                        class: 'form-label'
+                    }
+                }) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.ProfilePicture,{
+                    row_attr:{
+                        class: 'form-container',
+                    },
+                    attr: {
+                        class: 'form-control'
+                    },
+                    label_attr: {
+                        class: 'form-label'
+                    }
+                }) }}
+            </div>
+            {#            <div class="profilePicture"> #}
+            {#                <img src="{{ asset(details(app.user).getProfilePicture()) }}" alt="Pofile Picture" class="profilePicture"> #}
+            {#            </div> #}
+
+
+            <div class="form-group" style="overflow: hidden">
+                {{ form_row(form.Change,{
+                    attr: {
+                        class: 'btn btn-info'
+                    },
+                    row_attr:{
+                        class: 'form-container'
+                    },
+                    label_attr: {
+                        class: 'form-label'
+                    }
+                }) }}
+
+
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+
+    </div>
+</div>

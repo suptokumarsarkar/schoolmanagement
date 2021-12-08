@@ -6,20 +6,26 @@ use App\Entity\Guardian;
 use App\Entity\LoginInfo;
 use App\Entity\Student;
 use App\Entity\Teacher;
+use App\Repository\LoginInfoRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class RegisterService
 {
     private EntityManagerInterface $em;
     private LiveService $LiveService;
     private UserPasswordHasherInterface $passwordEncoder;
+    private TokenStorageInterface $tokenStorage;
+    private LoginInfoRepository $loginInfoRepository;
 
-    function __construct(EntityManagerInterface $em, LiveService $liveService, UserPasswordHasherInterface $passwordHasherEncoder)
+    function __construct(EntityManagerInterface $em, LiveService $liveService, UserPasswordHasherInterface $passwordHasherEncoder, TokenStorageInterface $tokenStorage, LoginInfoRepository $loginInfoRepository)
     {
         $this->em = $em;
         $this->LiveService = $liveService;
         $this->passwordEncoder = $passwordHasherEncoder;
+        $this->tokenStorage = $tokenStorage;
+        $this->loginInfoRepository = $loginInfoRepository;
     }
     public function registerStudent($form)
     {
@@ -143,6 +149,33 @@ class RegisterService
         }else{
             return 0;
         }
+    }
+
+    public function editProfile($task)
+    {
+        $user = $this->tokenStorage->getToken()->getUser();
+        $loginUser = $this->loginInfoRepository->find($user->getId());
+        $extraDetailedUser = $this->loginInfoRepository->info($loginUser);
+        $loginUser->setEmail($task['Email']);
+        $extraDetailedUser->setEmail($task['Email']);
+        if ($task['Password']){
+            $loginUser->setPassword($this->passwordEncoder->hashPassword($loginUser, $task['Password']));
+            $extraDetailedUser->setPassword($task['Password']);
+        }
+        $extraDetailedUser->setTimezone($task['Timezone']);
+        if($task['ProfilePicture']){
+            $this->LiveService->deleteImage($extraDetailedUser->getProfilePicture());
+            $extraDetailedUser->setProfilePicture($this->LiveService->moveUploadedFile($task['ProfilePicture'], "public/uploads/","uploads/", "profile_".time()));
+        }
+
+        $this->em->persist($loginUser);
+        $this->em->persist($extraDetailedUser);
+
+        // actually executes the queries (i.e. the INSERT query)
+        $this->em->flush();
+
+        return true;
+
     }
 
 }

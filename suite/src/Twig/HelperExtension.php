@@ -34,6 +34,7 @@ class HelperExtension extends AbstractExtension
             new TwigFunction('dd', [$this, 'debug']),
             new TwigFunction('form_child', [$this, 'form_child']),
             new TwigFunction('details', [$this, 'getData']),
+            new TwigFunction('status', [$this, 'status']),
         ];
     }
 
@@ -44,13 +45,25 @@ class HelperExtension extends AbstractExtension
         ];
         return $colours[$value];
     }
+    public function status($value)
+    {
+        $values = [
+            'pending' => 'info',
+            'waiting' => 'primary',
+            'approved' => 'success',
+            'rejected' => 'danger',
+            'cancelled' => 'warning',
+            'deleted' => 'danger',
+        ];
+        return $values[strtolower($value)];
+    }
 
     public function soft($type)
     {
         if ($type == "icon")
             return $this->package->getUrl("/images/fev.png");
         if ($type == "name")
-            return $this->tr("Software");
+            return $this->tr("KnowledgeHouse");
     }
     public function tr($string):string
     {

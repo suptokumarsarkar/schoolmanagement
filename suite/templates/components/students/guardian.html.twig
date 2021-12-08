@@ -1,0 +1,75 @@
+<div class="main-content-wrap sidenav-open d-flex flex-column">
+    <div class="container">
+
+        <div class="table-responsive card card-body">
+            <div class="row">
+                <div class="col-8">
+                <h2>My Student List</h2>
+                </div>
+                <div class="col-4">
+                    <button href="" class="btn float-right mb-4 btn-primary">
+                        <i class="nav-icon i-Add-User font-weight-bold"></i>
+                        Create New Student
+                    </button>
+                </div>
+
+            </div>
+            <table id="user_table" class="table dataTable-collapse text-center">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Avatar</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Options</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for key, value in students %}
+                    <tr>
+                        <th scope="row">{{ key + 1 }}</th>
+                        <td>{{ value.getFullName() }}</td>
+                        <td>
+
+                            <img class="rounded-circle m-0 avatar-sm-table "
+                                 src="{{ asset(value.getProfilePicture()) }}" alt="">
+
+                        </td>
+
+                        <td>{{ value.getEmail() }}</td>
+                        <td><span class="badge badge-{{ status(value.getStatus()) }}">{{ value.getStatus() }}</span>
+                        </td>
+
+                        <td>
+                            <a href="#" class="text-success mr-2">
+                                <i class="nav-icon i-Pen-2 font-weight-bold"></i>
+                            </a>
+                            <a href="#" class="text-danger mr-2">
+                                <i class="nav-icon i-Close-Window font-weight-bold"></i>
+                            </a>
+                        </td>
+                        <td>
+
+                            {% if not value.isLogable %}
+                                <a href="{{ path("students.createLogin", {id:value.getId()}) }}" class="btn btn-success btn-sm">
+                                    Create Login Method
+                                </a>
+                            {% else %}
+                                <a href="{{ path("students.updateLogin",{id:value.getId()}) }}" class="btn btn-primary btn-sm">
+                                    Update Login Method
+                                </a>
+
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

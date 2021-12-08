@@ -47,4 +47,12 @@ class LiveService
         return $dbPath . basename($fileName).".".$file->getClientOriginalExtension();
     }
 
+    public function deleteImage(?string $getProfilePicture): string
+    {
+        if(file_exists($this->publicPath.'/public/'.$getProfilePicture)){
+            unlink($this->publicPath.'/public/'.$getProfilePicture);
+        }
+        return "Deleted Successfully";
+    }
+
 }

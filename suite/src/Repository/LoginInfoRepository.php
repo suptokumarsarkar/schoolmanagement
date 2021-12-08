@@ -12,6 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method LoginInfo|null find($id, $lockMode = null, $lockVersion = null)
@@ -61,32 +62,9 @@ class LoginInfoRepository extends ServiceEntityRepository implements PasswordUpg
 
     }
 
-    // /**
-    //  * @return LoginInfo[] Returns an array of LoginInfo objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function LogInfo(UserInterface $getUser)
     {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('l.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $user = LoginInfoRepository::find($getUser->getId());
+        return $this->info($user);
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?LoginInfo
-    {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

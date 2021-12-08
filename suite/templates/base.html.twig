@@ -9,13 +9,15 @@
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
 
-        <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900" rel="stylesheet">
+{#        <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900" rel="stylesheet">#}
         <link rel="stylesheet" href="{{ asset('/src/assets/styles/vendor/datatables.min.css') }}">
         <link rel="stylesheet" href="{{ asset('/src/assets/styles/css/themes/lite-purple.copy.css') }}">
         <link rel="stylesheet" href="{{ asset('/src/assets/styles/vendor/perfect-scrollbar.css') }}">
         <link rel="stylesheet" href="{{ asset('/plugins/selectize.css') }}">
         <link rel="stylesheet" href="{{ asset('/src/assets/styles/vendor/sweetalert2.min.css') }}">
         <link rel="stylesheet" href="{{ asset('/src/assets/styles/vendor/toastr.css') }}">
+        <script src="{{ asset('/src/assets/js/vendor/jquery-3.3.1.min.js') }}"></script>
+
 
     {% endblock %}
     {{ encore_entry_script_tags('app') }}
@@ -28,7 +30,6 @@
 {% block body %}{% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset('/src/assets/js/vendor/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('/src/assets/js/vendor/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('/src/assets/js/vendor/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('/src/assets/js/vendor/echarts.min.js') }}"></script>
@@ -42,7 +43,12 @@
 
     <script src="{{ asset('/src/assets/js/es5/script.min.js') }}"></script>
     <script src="{{ asset('/src/assets/js/es5/sidebar.large.script.min.js') }}"></script>
-
+    <script>
+        function selectize() {
+            $('select').selectize();
+        }
+        selectize();
+    </script>
 {% endblock %}
 
 {% block jquery %}
